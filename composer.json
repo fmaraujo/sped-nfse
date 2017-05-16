@@ -20,7 +20,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/robmachado/sped-common"
+            "url": "https://github.com/fmaraujo/sped-common"
         }
     ],
     "require": {
