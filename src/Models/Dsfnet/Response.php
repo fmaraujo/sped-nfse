@@ -20,11 +20,11 @@ use NFePHP\NFSe\Common\Response as ResponseBase;
 
 class Response extends ResponseBase
 {
-    public function readReturn($tag, $response)
+    public function readReturn($tag, $response, $onlyXml = false)
     {
         //remove os prefixos da resposta para permitir
         //a conversão do XML em um stdClass
         $response = str_replace('ns1:', '', $response);
-        return parent::readReturn($tag, $response);
+        return parent::readReturn($tag, $response, $onlyXml);
     }
 }
