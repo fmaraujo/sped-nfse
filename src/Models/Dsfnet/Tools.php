@@ -152,17 +152,7 @@ class Tools extends ToolsBase
     public function enviar($rpss, $numeroLote)
     {
         $this->method = 'enviar';
-        $fact = new Factories\Enviar($this->certificate);
-        $fact->setSignAlgorithm($this->algorithm);
-        $xml = $fact->render(
-            $this->versao,
-            $this->remetenteCNPJCPF,
-            $this->remetenteRazao,
-            'true',
-            $this->codcidade,
-            $rpss,
-            $numeroLote
-        );
+        $xml = $this->generateXml($rpss, $numeroLote, 'true');
         return $this->sendRequest('', $xml);
     }
 
@@ -175,17 +165,7 @@ class Tools extends ToolsBase
     public function enviarSincrono($rpss, $numeroLote)
     {
         $this->method = 'enviarSincrono';
-        $fact = new Factories\Enviar($this->certificate);
-        $fact->setSignAlgorithm($this->algorithm);
-        $xml = $fact->render(
-            $this->versao,
-            $this->remetenteCNPJCPF,
-            $this->remetenteRazao,
-            null,
-            $this->codcidade,
-            $rpss,
-            $numeroLote
-        );
+        $xml = $this->generateXml($rpss, $numeroLote);
         return $this->sendRequest('', $xml);
     }
 
@@ -198,17 +178,7 @@ class Tools extends ToolsBase
     public function testeEnviar($rpss, $numeroLote)
     {
         $this->method = 'testeEnviar';
-        $fact = new Factories\Enviar($this->certificate);
-        $fact->setSignAlgorithm($this->algorithm);
-        $xml = $fact->render(
-            $this->versao,
-            $this->remetenteCNPJCPF,
-            $this->remetenteRazao,
-            null,
-            $this->codcidade,
-            $rpss,
-            $numeroLote
-        );
+        $xml = $this->generateXml($rpss, $numeroLote, 'true');
         return $this->sendRequest('', $xml);
     }
 
@@ -286,5 +256,22 @@ class Tools extends ToolsBase
 
         return $envelope;
          */
+    }
+
+    public function generateXml($rpss, $numeroLote, $transacao = null)
+    {
+        $fact = new Factories\Enviar($this->certificate);
+        $fact->setSignAlgorithm($this->algorithm);
+        $xml = $fact->render(
+            $this->versao,
+            $this->remetenteCNPJCPF,
+            $this->remetenteRazao,
+            $transacao,
+            $this->codcidade,
+            $rpss,
+            $numeroLote
+        );
+
+        return $xml;
     }
 }

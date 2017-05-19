@@ -22,7 +22,7 @@ use stdClass;
 
 class Response
 {
-    public function readReturn($tag, $response)
+    public function readReturn($tag, $response, $onlyXml = false)
     {
         libxml_use_internal_errors(true);
         $dom = new DOMDocument('1.0', 'utf-8');
@@ -41,16 +41,17 @@ class Response
             throw new \RuntimeException($reason);
         }
         //converte o xml em uma stdClass
-        return $this->xml2Obj($dom, $tag);
+        return $this->xml2Obj($dom, $tag, $onlyXml);
     }
 
     /**
      * Convert DOMDocument in stdClass
      * @param \DOMDocument $dom
      * @param string $tag
+     * @param boolean $onlyXml
      * @return \stdClass
      */
-    protected function xml2Obj(DOMDocument $dom, $tag)
+    protected function xml2Obj(DOMDocument $dom, $tag, $onlyXml = false)
     {
         $node = $dom->getElementsByTagName($tag)->item(0);
         $newdoc = new DOMDocument('1.0', 'utf-8');
@@ -62,6 +63,10 @@ class Response
         $xml = str_replace('&lt;?xml version="1.0" encoding="UTF-8"?&gt;', '', $xml);
         $xml = str_replace('&lt;?xml version="1.0" encoding="utf-8"?&gt;', '', $xml);
         $xml = EntitiesCharacters::convert(html_entity_decode($xml));
+
+        if($onlyXml){
+            return $xml;
+        }
 
         $resp = simplexml_load_string($xml, null, LIBXML_NOCDATA);
         $std = json_encode($resp);
