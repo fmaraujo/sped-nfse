@@ -26,7 +26,7 @@ class Tools extends ToolsDsfnet
      * @var array
      */
     protected $url = [
-        1 => 'http://udigital.uberlandia.mg.gov.br/WsNFe2/LoteRps.jws',
+        1 => 'https://udigital.uberlandia.mg.gov.br/WsNFe2/LoteRps.jws',
         2 => ''
     ];
     /**
@@ -34,7 +34,7 @@ class Tools extends ToolsDsfnet
      * @var string
      */
     protected $xmlns = 'http://proces.wsnfe2.dsfnet.com.br';
-    
+
     /**
      * Soap Version
      * @var int
