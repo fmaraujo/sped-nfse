@@ -26,7 +26,7 @@ class Tools extends ToolsDsfnet
      * @var array
      */
     protected $url = [
-        1 => 'https://udigital.uberlandia.mg.gov.br/WsNFe2/LoteRps.jws',
+        1 => 'https://nfsews.uberlandia.mg.gov.br:8003/nfse-ws/soap/nfse',
         2 => ''
     ];
     /**
